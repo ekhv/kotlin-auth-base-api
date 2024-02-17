@@ -1,28 +1,11 @@
 package com.example
 
-import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.engine.*
+import io.ktor.server.cio.*
+import com.example.plugins.*
 
-fun Application.main() {
-    install(Authentication) {
-        bearer("auth-bearer") {
-            realm = "Access to the '/' path"
-            authenticate { tokenCredential ->
-                if (tokenCredential.token == "abc123") {
-                    UserIdPrincipal("jetbrains")
-                } else {
-                    null
-                }
-            }
-        }
-    }
-    routing {
-        authenticate("auth-bearer") {
-            get("/") {
-                call.respondText("Hello, ${call.principal<UserIdPrincipal>()?.name}!")
-            }
-        }
-    }
+fun main() {
+    embeddedServer(CIO, port = 8080, host = "0.0.0.0") {
+        configureRouting()
+    }.start(wait = true)
 }
