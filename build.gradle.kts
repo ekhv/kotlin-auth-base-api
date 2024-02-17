@@ -19,10 +19,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
-//kotlin {
-//    jvmToolchain(11)
-//}
-
 
 application {
     mainClass.set("com.example.ApplicationKt")
@@ -96,5 +92,4 @@ graalvmNative {
             events("passed", "skipped", "failed")
         }
     }
-
 }
