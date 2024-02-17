@@ -1,6 +1,9 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     kotlin("jvm") version "1.9.22"
     application
+    id("com.github.johnrengelman.shadow") version "8.0.0"
 }
 
 group = "org.example"
@@ -38,4 +41,12 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host:2.3.8")
     implementation("commons-codec:commons-codec:1.16.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
+}
+
+tasks.withType<ShadowJar> {
+    manifest {
+        attributes["Main-Class"] = "com.example.ApplicationKt"
+    }
+    archiveClassifier.set("")
+    mergeServiceFiles()
 }
