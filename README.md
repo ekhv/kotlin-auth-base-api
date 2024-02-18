@@ -1,13 +1,13 @@
 # Kotlin auth API
 
-create native bin
+create fat Jar
 ```shell
-./gradlew nativeBuild
+./gradlew ShadowJar
 ```
 
-start web server
+build Docker
 ```shell
-build/native/nativeCompile/graalvm-server
+docker build -t server .
 ```
 
 
